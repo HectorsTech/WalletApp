@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 
+type Props = {
+  style?: React.CSSProperties;
+};
+
 const MAX_LIMIT = 1500;
 
-const CardBalance = () => {
+const CardBalance = ({ style }: Props) => {
   const [balance, setBalance] = useState<number>(0);
 
   useEffect(() => {
@@ -13,7 +17,13 @@ const CardBalance = () => {
   const available = MAX_LIMIT - balance;
 
   return (
-    <div style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '1rem', marginBottom: '1rem' }}>
+    <div style={{
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      padding: '1rem',
+      marginBottom: '1rem',
+      ...style
+    }}>
       <div>
         <strong>Card Balance</strong>
         <p>${balance.toFixed(2)}</p>

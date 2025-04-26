@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getTodayPoints } from '../utils/calculatePoints';
 
-const DailyPoints = () => {
+type Props = {
+  style?: React.CSSProperties;
+};
+
+const DailyPoints = ({ style }: Props) => {
   const [points, setPoints] = useState<string>('0');
 
   useEffect(() => {
@@ -9,7 +13,13 @@ const DailyPoints = () => {
   }, []);
 
   return (
-    <div style={{ border: '1px solid #ccc', borderRadius: '8px', padding: '1rem', marginBottom: '1rem' }}>
+    <div style={{
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      padding: '1rem',
+      marginBottom: '1rem',
+      ...style
+    }}>
       <div>
         <strong>Daily Points</strong>
         <p>{points}</p>

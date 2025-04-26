@@ -14,17 +14,34 @@ type Props = {
   
   const TransactionDetail = ({ transaction, onBack }: Props) => {
     const { amount, name, description, date, status } = transaction;
+    const fullDate = new Date(date).toLocaleString();
   
     return (
-      <div style={{ padding: '1rem' }}>
-        <button onClick={onBack} style={{ marginBottom: '1rem' }}>← Back</button>
-        <h1>${amount.toFixed(2)}</h1>
-        <h2>{name}</h2>
-        <p>{date}</p>
+      <div style={{ padding: '1rem', fontFamily: 'Arial, sans-serif' }}>
+        <button onClick={onBack} style={{
+          marginBottom: '1rem',
+          background: 'none',
+          border: 'none',
+          fontSize: '1rem',
+          cursor: 'pointer',
+          color: '#007bff'
+        }}>← Back</button>
   
-        <div style={{ border: '1px solid #ccc', padding: '1rem', borderRadius: '8px', marginTop: '1rem' }}>
+        <h1 style={{ fontSize: '2.5rem', margin: '0' }}>${amount.toFixed(2)}</h1>
+        <h2 style={{ fontSize: '1rem', fontWeight: 'normal', color: '#555' }}>{name}</h2>
+        <p style={{ fontSize: '0.9rem', color: 'gray' }}>{fullDate}</p>
+  
+        <div style={{
+          backgroundColor: '#f5f5f5',
+          padding: '1rem',
+          borderRadius: '8px',
+          marginTop: '1rem'
+        }}>
           <p><strong>Status:</strong> {status}</p>
-          <p><strong>Description:</strong> {description}</p>
+          <p style={{ color: '#555' }}>{description}</p>
+        </div>
+  
+        <div style={{ marginTop: '1rem' }}>
           <p><strong>Total:</strong> ${amount.toFixed(2)}</p>
         </div>
       </div>
@@ -32,4 +49,5 @@ type Props = {
   };
   
   export default TransactionDetail;
+  
   
