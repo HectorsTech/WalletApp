@@ -9,7 +9,9 @@ const DailyPoints = ({ style }: Props) => {
   const [points, setPoints] = useState<string>('0');
 
   useEffect(() => {
-    setPoints(getTodayPoints());
+    const todayPoints = getTodayPoints();
+  console.log('Today points:', todayPoints); // <-- AGREGAR ESTO
+  setPoints(todayPoints);
   }, []);
 
   return (
@@ -22,7 +24,7 @@ const DailyPoints = ({ style }: Props) => {
     }}>
       <div>
         <strong>Daily Points</strong>
-        <p>{points}</p>
+        <p>{points === '0' ? 'No points yet' : `${points} points today`}</p>
       </div>
     </div>
   );

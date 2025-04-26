@@ -3,37 +3,30 @@ export function isLeapYear(year: number): boolean {
   }
   
   function getDayOfSeason(date: Date): number {
-    const seasonStart = new Date(date.getFullYear(), 8, 1); // 1 de septiembre (mes 8 = septiembre)
+    const seasonStart = new Date(date.getFullYear(), 0, 1); // 1 de enero
     const diff = Math.floor((date.getTime() - seasonStart.getTime()) / (1000 * 60 * 60 * 24));
-    return diff + 1; // día 1 es 1 de sept
+    return diff + 1;
   }
   
+  // NUEVA fórmula más controlada
   export function calculatePoints(day: number): number {
-    if (day === 1) return 2;
-    if (day === 2) return 3;
-    const day1 = 2;
-    const day2 = 3;
-    let points = 0;
-    let prev = day2;
-    let prevPrev = day1;
-  
-    for (let i = 3; i <= day; i++) {
-      points = prevPrev + prev * 0.6;
-      prevPrev = prev;
-      prev = points;
-    }
-  
-    return Math.round(points);
+    // crecimiento suave tipo XP
+    return Math.min(Math.round(Math.log2(day + 1) * 100), 9999);
   }
   
   export function formatPoints(points: number): string {
-    return points > 1000 ? `${Math.round(points / 1000)}K` : points.toString();
+    return points >= 1000
+      ? `${(points / 1000).toFixed(1)}K` // 1 decimal en miles
+      : points.toString();
   }
   
   export function getTodayPoints(): string {
     const today = new Date();
     const day = getDayOfSeason(today);
+    console.log('Day of season:', day);
+    if (day < 1) return '0';
     const points = calculatePoints(day);
+    console.log('Raw points:', points);
     return formatPoints(points);
   }
   
